@@ -3,6 +3,7 @@
   "main": "app/index.js",
   "type": "module",
   "scripts": {
+    "start": "node --watch app/index.js",
     "test": "vitest"
   },
   "devDependencies": {
