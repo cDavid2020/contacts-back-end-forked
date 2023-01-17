@@ -66,6 +66,20 @@ app.put("/api/contacts/:id", (request, response) => {
   });
 });
 
+app.delete("/api/contacts/:id", (request, response) => {
+  const id2Delete = request.params.id;
+
+  // Filter out the contact with the id to delete
+  const updatedContacts = CONTACTS.filter(
+    (contact) => contact.id !== Number(id2Delete)
+  );
+
+  response.json({
+    message: `Contact deleted successfully with id: ${id2Delete}`,
+    updatedContacts,
+  });
+});
+
 app.listen(3000, () => {
   console.info("Server is running on port 3000");
 });
