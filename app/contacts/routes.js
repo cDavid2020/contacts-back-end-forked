@@ -7,6 +7,8 @@ const CONTACTS = [
 
 const router = new Router();
 
+// TODO: Write a GET route to do a search with QUERY PARAMETERS
+
 router.get("/api/contacts", (_, response) => {
   response.json(CONTACTS);
 });
