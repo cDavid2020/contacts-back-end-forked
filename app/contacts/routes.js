@@ -36,10 +36,6 @@ router.get("/api/contacts/:id", (request, response) => {
   }
 });
 
-// Express uses middleware to parse the body of a request
-// This is required to access the body of a POST request
-router.use(express.json());
-
 router.post("/api/contacts", (request, response) => {
   console.log(request.body);
   response.send("ok");
