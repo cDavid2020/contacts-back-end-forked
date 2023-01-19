@@ -9,7 +9,7 @@ const router = new Router();
 
 // TODO: Write a GET route to do a search with QUERY PARAMETERS
 
-router.get("/api/contacts", (_, response) => {
+router.get("/", (_, response) => {
   response.json(CONTACTS);
 });
 
@@ -17,7 +17,7 @@ router.get("/api/contacts", (_, response) => {
 // It will be available in the request.params object
 // e.g. /api/contacts/1 => { id: 1 }
 // 'id' can be any name
-router.get("/api/contacts/:id", (request, response) => {
+router.get("/:id", (request, response) => {
   const { id } = request.params;
 
   const contact = CONTACTS.find((contact) => contact.id === Number(id));
@@ -36,12 +36,12 @@ router.get("/api/contacts/:id", (request, response) => {
   }
 });
 
-router.post("/api/contacts", (request, response) => {
+router.post("/", (request, response) => {
   console.log(request.body);
   response.send("ok");
 });
 
-router.put("/api/contacts/:id", (request, response) => {
+router.put("/:id", (request, response) => {
   // Id that needs to be updated
   const id2Update = request.params.id;
   const updatedContact = request.body;
@@ -62,7 +62,7 @@ router.put("/api/contacts/:id", (request, response) => {
   });
 });
 
-router.delete("/api/contacts/:id", (request, response) => {
+router.delete("/:id", (request, response) => {
   const id2Delete = request.params.id;
 
   // Filter out the contact with the id to delete
