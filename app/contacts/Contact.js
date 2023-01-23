@@ -20,11 +20,10 @@ export default model(
         "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
       validate: {
         validator(url) {
-          return /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
-            url
-          );
+          // TODO: Use a REGULAR EXPRESSION to validate the URL with 'test'
+          return url.startsWith("http");
         },
-        message: (props) => `${props.value} is not a valid URL`,
+        message: (props) => `${props.value} is not a valid URL!`,
       },
     },
   })
