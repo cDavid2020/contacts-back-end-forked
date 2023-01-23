@@ -4,7 +4,7 @@ export default model(
   "Contact",
   new Schema({
     // https://mongoosejs.com/docs/validation.html#validation
-    fullName: { type: String, required: true },
+    fullName: { type: String, required: [true, "Full name is required!"] },
     username: {
       type: String,
       required: [true, "Username is required"],
