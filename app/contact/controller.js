@@ -18,4 +18,8 @@ export default {
   index() {
     return Contact.find();
   },
+
+  show(id) {
+    return Contact.findById(id);
+  },
 };
