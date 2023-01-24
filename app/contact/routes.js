@@ -34,4 +34,31 @@ router.get("/:id", async (request, response) => {
   }
 });
 
+router.post("/", (request, response) => {
+  const newContact = request.body;
+
+  // Validate the new contact
+  if (!newContact.fullName) {
+    response.status(400).json({ message: "Full name is required" });
+  } else if (!newContact.username) {
+    response.status(400).json({ message: "Username is required" });
+  } else if (newContact.avatar && !newContact.avatar.startsWith("http")) {
+    response.status(400).json({
+      message: "Avatar must be a valid URL",
+    });
+  } else if (newContact.username.length < 3) {
+    response.status(400).json({
+      message: "Username must be at least 3 characters long",
+    });
+  } else if (newContact.username.length > 20) {
+    response.status(400).json({
+      message: "Username must be at most 20 characters long",
+    });
+  } else {
+    controller.create(newContact).then((createdContact) => {
+      response.status(201).json(createdContact);
+    });
+  }
+});
+
 export default router;
