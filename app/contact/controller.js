@@ -20,6 +20,11 @@ export default {
   },
 
   show(id) {
-    return Contact.findById(id);
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      return Contact.findById(id);
+    }
+
+    // Wrap the error in a rejected promise so that it can be CAUGHT.
+    return Promise.reject(new Error("Invalid ID"));
   },
 };
