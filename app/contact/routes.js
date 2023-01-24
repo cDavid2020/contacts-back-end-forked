@@ -1,34 +1,16 @@
 import { Router } from "express";
 
-const CONTACTS = [
-  { id: 1, name: "John" },
-  { id: 2, name: "Jane" },
-];
-
 const router = new Router();
 
-// TODO: Write a GET route to do a search with QUERY PARAMETERS
-
-router.get("/", (_, response) => {
-  response.json(CONTACTS);
-});
+// TODO: Use the controller to get all of the contacts
+router.get("/", (_, response) => {});
 
 // ':id' is a route request parameter (params)
 // It will be available in the request.params object
 // e.g. /api/contacts/1 => { id: 1 }
 // 'id' can be any name
 router.get("/:id", (request, response) => {
-  const { id } = request.params;
-
-  const contact = CONTACTS.find((contact) => contact.id === Number(id));
-
-  /**
-   * If the contact is not found, we return a 404 status code
-   * and a message to the user
-   * 404 means the resource was not found
-   * Otherwise, send back the found contact with a 200 status code
-   * 200 means the resource was found
-   */
+  
   if (contact) {
     response.json(contact);
   } else {
@@ -37,7 +19,7 @@ router.get("/:id", (request, response) => {
 });
 
 router.post("/", (request, response) => {
-  console.log(request.body);
+  
   response.send("ok");
 });
 
