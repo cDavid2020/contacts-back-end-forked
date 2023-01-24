@@ -14,5 +14,8 @@ mongoose
   });
 
 export default {
-  // TODO: Get all contacts
+  // Get all contacts
+  index() {
+    return Contact.find();
+  },
 };
