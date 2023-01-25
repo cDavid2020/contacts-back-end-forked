@@ -22,9 +22,7 @@ router.get("/contact", async (request, response) => {
 
   if (id) {
     contact = await controller.showById(id).catch((err) => {
-      // If the reason for the rejected Promise is an invalid ID, then...
       if (err.message === "Invalid ID") {
-        // ...return a 400 Bad Request status code.
         return response.status(400).json({ message: "Invalid ID" });
       }
 
