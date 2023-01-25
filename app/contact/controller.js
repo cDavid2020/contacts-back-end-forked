@@ -47,4 +47,7 @@ export default {
     });
   },
 
+  delete(id2Delete) {
+    return Contact.findByIdAndDelete(id2Delete);
+  },
 };
