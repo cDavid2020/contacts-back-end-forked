@@ -28,10 +28,12 @@ router.get("/contact", async (request, response) => {
 
       response.status(500).json(err);
     });
-  } else {
+  } else if (username) {
     contact = await controller.showByUsername(username).catch((err) => {
       response.status(500).json(err);
     });
+  } else {
+    return response.status(400).json({ message: "ID or username is required" });
   }
 
   if (contact) {
@@ -44,28 +46,20 @@ router.get("/contact", async (request, response) => {
 router.post("/", (request, response) => {
   const newContact = request.body;
 
-  // Validate the new contact
-  if (!newContact.fullName) {
-    response.status(400).json({ message: "Full name is required" });
-  } else if (!newContact.username) {
-    response.status(400).json({ message: "Username is required" });
-  } else if (newContact.avatar && !newContact.avatar.startsWith("http")) {
-    response.status(400).json({
-      message: "Avatar must be a valid URL",
-    });
-  } else if (newContact.username.length < 3) {
-    response.status(400).json({
-      message: "Username must be at least 3 characters long",
-    });
-  } else if (newContact.username.length > 20) {
-    response.status(400).json({
-      message: "Username must be at most 20 characters long",
-    });
-  } else {
-    controller.create(newContact).then((createdContact) => {
+  controller
+    .create(newContact)
+    .then((createdContact) => {
       response.status(201).json(createdContact);
+    })
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        return response.status(400).json(err.message);
+      }
+
+      response.status(500).json(err);
     });
-  }
 });
+
+// TODO: Implement routes to update and delete contacts
 
 export default router;
