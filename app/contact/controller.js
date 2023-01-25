@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import config from "../config.js";
 import Contact from "./Contact.js";
 
+// Enforce strict query mode to prevent queries for fields that don't exist in the schema
+mongoose.set("strictQuery", true);
+
 // Connect to the database
 mongoose
   .connect(config.dbConn)
