@@ -39,7 +39,8 @@ const contactController = {
   create(contact) {
     return Contact.create(contact);
   },
-  update(id2Update, updatedContact) {
+
+  updateById(id2Update, updatedContact) {
     if (mongoose.Types.ObjectId.isValid(id2Update)) {
       return Contact.findByIdAndUpdate(
         id2Update,
@@ -57,13 +58,24 @@ const contactController = {
     return Promise.reject(new Error("Invalid ID"));
   },
 
-  delete(id2Delete) {
+  updateByUsername(username, updatedContact) {
+    return Contact.findOneAndUpdate({ username }, updatedContact, {
+      returnDocument: "after",
+      runValidators: true,
+    });
+  },
+
+  deleteById(id2Delete) {
     if (mongoose.Types.ObjectId.isValid(id2Delete)) {
       return Contact.findByIdAndDelete(id2Delete);
     }
 
     // Wrap the error in a rejected promise so that it can be CAUGHT.
     return Promise.reject(new Error("Invalid ID"));
+  },
+
+  deleteByUsername(username) {
+    return Contact.findOneAndDelete(username);
   },
 };
 
