@@ -32,6 +32,10 @@ export default {
     return Promise.reject(new Error("Invalid ID"));
   },
 
+  showByUsername(username) {
+    return Contact.findOne({ username });
+  },
+
   create(contact) {
     return Contact.create(contact);
   },
