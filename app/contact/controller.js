@@ -39,12 +39,22 @@ const contactController = {
   create(contact) {
     return Contact.create(contact);
   },
-
   update(id2Update, updatedContact) {
-    // TODO: Do we need to validate the ID?
-    return Contact.findByIdAndUpdate(id2Update, updatedContact, {
+    if (mongoose.Types.ObjectId.isValid(id2Update)) {
+      return Contact.findByIdAndUpdate(
+        id2Update,
+
+        // The updated contact only needs to have the fields that are being updated
+        updatedContact,
+        {
+          returnDocument: "after",
       runValidators: true,
-    });
+        }
+      );
+    }
+
+    // Wrap the error in a rejected promise so that it can be CAUGHT.
+    return Promise.reject(new Error("Invalid ID"));
   },
 
   delete(id2Delete) {
