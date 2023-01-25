@@ -22,7 +22,8 @@ export default {
     return Contact.find();
   },
 
-  show(id) {
+  // get a single contact
+  showById(id) {
     if (mongoose.Types.ObjectId.isValid(id)) {
       return Contact.findById(id);
     }
