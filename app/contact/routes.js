@@ -3,6 +3,7 @@ import controller from "./controller.js";
 
 const router = new Router();
 
+// This will handle HTTP GET requests to /api/contacts
 router.get("/", (_, response) => {
   controller
     .index()
