@@ -39,4 +39,12 @@ export default {
   create(contact) {
     return Contact.create(contact);
   },
+
+  update(id2Update, updatedContact) {
+    // TODO: Do we need to validate the ID?
+    return Contact.findByIdAndUpdate(id2Update, updatedContact, {
+      runValidators: true,
+    });
+  },
+
 };
