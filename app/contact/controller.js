@@ -48,7 +48,7 @@ const contactController = {
         updatedContact,
         {
           returnDocument: "after",
-      runValidators: true,
+          runValidators: true,
         }
       );
     }
@@ -58,7 +58,12 @@ const contactController = {
   },
 
   delete(id2Delete) {
-    return Contact.findByIdAndDelete(id2Delete);
+    if (mongoose.Types.ObjectId.isValid(id2Delete)) {
+      return Contact.findByIdAndDelete(id2Delete);
+    }
+
+    // Wrap the error in a rejected promise so that it can be CAUGHT.
+    return Promise.reject(new Error("Invalid ID"));
   },
 };
 
