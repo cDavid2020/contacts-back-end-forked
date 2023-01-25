@@ -15,18 +15,26 @@ router.get("/", (_, response) => {
     });
 });
 
-router.get("/:id", async (request, response) => {
-  const { id } = request.params;
+router.get("/contact", async (request, response) => {
+  const { id, username } = request.query;
 
-  const contact = await controller.show(id).catch((err) => {
-    // If the reason for the rejected Promise is an invalid ID, then...
-    if (err.message === "Invalid ID") {
-      // ...return a 400 Bad Request status code.
-      return response.status(400).json({ message: "Invalid ID" });
-    }
+  let contact;
 
-    response.status(500).json(err);
-  });
+  if (id) {
+    contact = await controller.showById(id).catch((err) => {
+      // If the reason for the rejected Promise is an invalid ID, then...
+      if (err.message === "Invalid ID") {
+        // ...return a 400 Bad Request status code.
+        return response.status(400).json({ message: "Invalid ID" });
+      }
+
+      response.status(500).json(err);
+    });
+  } else {
+    contact = await controller.showByUsername(username).catch((err) => {
+      response.status(500).json(err);
+    });
+  }
 
   if (contact) {
     response.json(contact);
