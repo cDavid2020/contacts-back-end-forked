@@ -16,6 +16,11 @@ mongoose
     console.error("Error connecting to the database", err.message);
   });
 
+const options = {
+  returnDocument: "after",
+  runValidators: true,
+};
+
 const contactController = {
   // Get all contacts
   index() {
@@ -47,10 +52,7 @@ const contactController = {
 
         // The updated contact only needs to have the fields that are being updated
         updatedContact,
-        {
-          returnDocument: "after",
-          runValidators: true,
-        }
+        options
       );
     }
 
@@ -59,10 +61,7 @@ const contactController = {
   },
 
   updateByUsername(username, updatedContact) {
-    return Contact.findOneAndUpdate({ username }, updatedContact, {
-      returnDocument: "after",
-      runValidators: true,
-    });
+    return Contact.findOneAndUpdate({ username }, updatedContact, options);
   },
 
   deleteById(id2Delete) {
