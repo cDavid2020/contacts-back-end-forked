@@ -74,7 +74,7 @@ const contactController = {
   },
 
   deleteByUsername(username) {
-    return Contact.findOneAndDelete(username);
+    return Contact.findOneAndDelete({ username });
   },
 };
 
