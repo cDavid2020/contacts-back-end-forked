@@ -23,7 +23,7 @@ router.get("/contact", async (request, response) => {
   if (id) {
     contact = await controller.showById(id).catch((err) => {
       if (err.message === "Invalid ID") {
-        return response.status(400).json({ message: "Invalid ID" });
+        return response.status(400).json({ message: err.message });
       }
 
       response.status(500).json(err);
@@ -60,6 +60,6 @@ router.post("/", (request, response) => {
     });
 });
 
-// TODO: Implement routes to update and delete contacts
+// TODO: Implement routes to update and delete stuff in the controller
 
 export default router;
