@@ -27,7 +27,6 @@ const contactController = {
     return Contact.find();
   },
 
-  // get a single contact
   showById(id) {
     if (mongoose.Types.ObjectId.isValid(id)) {
       return Contact.findById(id);
