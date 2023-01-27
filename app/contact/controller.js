@@ -79,7 +79,8 @@ const contactController = {
   },
 
   deleteByUsername(username) {
-    return Contact.findOneAndDelete({ username });
+    // * ⚠️ AVOID 'findOneAndDelete' because it kills random people
+    return Contact.deleteOne({ username }, options);
   },
 };
 
