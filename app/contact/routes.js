@@ -76,7 +76,7 @@ router.put("/", async (request, response) => {
     updatedContact = await controller
       .updateById(id, incomingContact)
       .catch((err) => {
-        if (err.message === "Invalid ID") {
+        if (err.message.includes("ID")) {
           response.status(400).json({ message: err.message });
         } else if (err.name === "ValidationError" || err.name === "CastError") {
           response.status(400).json(err.message);

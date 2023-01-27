@@ -46,6 +46,10 @@ const contactController = {
   },
 
   updateById(id2Update, updatedContact) {
+    if (updatedContact.id || updatedContact._id) {
+      return Promise.reject(new Error("ID cannot be updated"));
+    }
+
     if (mongoose.Types.ObjectId.isValid(id2Update)) {
       return Contact.findByIdAndUpdate(
         id2Update,
