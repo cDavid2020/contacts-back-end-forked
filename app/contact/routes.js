@@ -61,17 +61,12 @@ router.post("/", (request, response) => {
 });
 
 router.put("/", async (request, response) => {
-  // The request can be made with either an ID or a username
-  // We will get this info from the query string
   const { id, username } = request.query;
 
-  // The updated contact will be in the request body
   const incomingContact = request.body;
 
-  // This will come from the controller
   let updatedContact;
 
-  // If the ID is provided, we will use it to update the contact
   if (id) {
     updatedContact = await controller
       .updateById(id, incomingContact)
