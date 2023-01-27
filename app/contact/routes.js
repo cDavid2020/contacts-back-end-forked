@@ -79,6 +79,8 @@ router.put("/", async (request, response) => {
         // TODO: Refactor this code to avoid duplication
         if (err.message === "Invalid ID") {
           response.status(400).json({ message: err.message });
+        } else if (err.name === "ValidationError") {
+          response.status(400).json(err.message);
         } else {
           response.status(500).json(err);
         }
