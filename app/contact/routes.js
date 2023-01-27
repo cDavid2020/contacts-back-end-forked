@@ -76,6 +76,12 @@ router.put("/", async (request, response) => {
           response.status(400).json({ message: err.message });
         } else if (err.name === "ValidationError") {
           response.status(400).json(err.message);
+        } else if (err.path) {
+          response
+            .status(400)
+            .json({
+              message: `Invalid request property in request body: ${err.path}`,
+            });
         } else {
           response.status(500).json(err);
         }
