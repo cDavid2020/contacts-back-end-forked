@@ -23,10 +23,10 @@ router.get("/contact", async (request, response) => {
   if (id) {
     contact = await controller.showById(id).catch((err) => {
       if (err.message === "Invalid ID") {
-        return response.status(400).json({ message: err.message });
+        response.status(400).json({ message: err.message });
+      } else {
+        response.status(500).json(err);
       }
-
-      response.status(500).json(err);
     });
   } else if (username) {
     contact = await controller.showByUsername(username).catch((err) => {
