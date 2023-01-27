@@ -23,10 +23,10 @@ router.get("/contact", async (request, response) => {
   if (id) {
     contact = await controller.showById(id).catch((err) => {
       if (err.message === "Invalid ID") {
-        return response.status(400).json({ message: err.message });
+        response.status(400).json({ message: err.message });
+      } else {
+        response.status(500).json(err);
       }
-
-      response.status(500).json(err);
     });
   } else if (username) {
     contact = await controller.showByUsername(username).catch((err) => {
@@ -61,17 +61,12 @@ router.post("/", (request, response) => {
 });
 
 router.put("/", async (request, response) => {
-  // The request can be made with either an ID or a username
-  // We will get this info from the query string
   const { id, username } = request.query;
 
-  // The updated contact will be in the request body
   const incomingContact = request.body;
 
-  // This will come from the controller
   let updatedContact;
 
-  // If the ID is provided, we will use it to update the contact
   if (id) {
     updatedContact = await controller
       .updateById(id, incomingContact)
@@ -80,9 +75,9 @@ router.put("/", async (request, response) => {
           response.status(400).json({ message: err.message });
         } else if (err.name === "ValidationError" || err.name === "CastError") {
           response.status(400).json(err.message);
-        } else if (err.message) {
+        } else if (err.path) {
           response.status(400).json({
-            message: `Kindly check your request body. It doesn't contain the appropriate properties, most likely. ${err.message}`,
+            message: `Invalid request property in request body: ${err.path}`,
           });
         } else {
           response.status(500).json(err);

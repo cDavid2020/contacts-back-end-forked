@@ -19,6 +19,7 @@ mongoose
 const options = {
   rawResult: true,
   runValidators: true,
+  strict: "throw",
 };
 
 const contactController = {
