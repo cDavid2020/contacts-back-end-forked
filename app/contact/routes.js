@@ -123,7 +123,7 @@ router.delete("/", async (request, response) => {
 
   if (deletedContact) {
     response.json(deletedContact);
-  } else {
+  } else if (deletedContact === null) {
     response.status(404).json({ message: "Contact not found" });
   }
 });
