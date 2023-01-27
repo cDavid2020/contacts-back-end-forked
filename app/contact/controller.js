@@ -17,7 +17,7 @@ mongoose
   });
 
 const options = {
-  returnDocument: "after",
+  rawResult: true,
   runValidators: true,
 };
 

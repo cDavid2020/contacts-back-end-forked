@@ -76,11 +76,14 @@ router.put("/", async (request, response) => {
     updatedContact = await controller
       .updateById(id, incomingContact)
       .catch((err) => {
-        // TODO: Refactor this code to avoid duplication
         if (err.message === "Invalid ID") {
           response.status(400).json({ message: err.message });
-        } else if (err.name === "ValidationError") {
+        } else if (err.name === "ValidationError" || err.name === "CastError") {
           response.status(400).json(err.message);
+        } else if (err.message) {
+          response.status(400).json({
+            message: `Kindly check your request body. It doesn't contain the appropriate properties, most likely. ${err.message}`,
+          });
         } else {
           response.status(500).json(err);
         }
