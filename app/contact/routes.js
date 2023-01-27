@@ -38,7 +38,12 @@ router.get("/contact", async (request, response) => {
 
   if (contact) {
     response.json(contact);
-  } else {
+  }
+
+  // * ⚠️ We need to explicitly compare with 'null'.
+  // * If we don't, the response will be sent twice.
+  // * 'null' means that the id was valid, but not found in the database.
+  else if (contact === null) {
     response.status(404).json({ message: "Contact not found" });
   }
 });
