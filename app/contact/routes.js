@@ -97,4 +97,32 @@ router.put("/", async (request, response) => {
   if (updatedContact) response.json(updatedContact);
 });
 
+router.delete("/", async (request, response) => {
+  const { id, username } = request.query;
+
+  let deletedContact;
+
+  if (id) {
+    deletedContact = await controller.deleteById(id).catch((err) => {
+      if (err.message === "Invalid ID") {
+        response.status(400).json({ message: err.message });
+      }
+
+      response.status(500).json(err);
+    });
+  } else if (username) {
+    deletedContact = await controller
+      .deleteByUsername(username)
+      .catch((err) => {
+        response.status(500).json(err);
+      });
+  }
+
+  if (deletedContact) {
+    response.json(deletedContact);
+  } else {
+    response.status(404).json({ message: "Contact not found" });
+  }
+});
+
 export default router;
