@@ -1,3 +1,5 @@
+given this code print it in code blocks. it includes // comments in the notes. explain specifically what each line is doing to an entry level javascript developer
+
 import { Router } from "express";
 import controller from "./controller.js";
 
@@ -106,6 +108,7 @@ router.delete("/", async (request, response) => {
   let deletedContact;
 
   if (id) {
+
     deletedContact = await controller.deleteById(id).catch((err) => {
       if (err.message === "Invalid ID") {
         response.status(400).json({ message: err.message });

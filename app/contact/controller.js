@@ -1,4 +1,7 @@
-// This is the gateway to the database
+given this code print it in code blocks. it includes // comments in the notes. explain specifically what each line is doing to an entry level javascript developer
+
+// THIS IS THE GATEWAY TO THE DATABASE
+// Mongoose
 import mongoose from "mongoose";
 import config from "../config.js";
 import Contact from "./Contact.js";
@@ -15,6 +18,8 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to the database", err.message);
   });
+
+
 
 const options = {
   rawResult: true,
